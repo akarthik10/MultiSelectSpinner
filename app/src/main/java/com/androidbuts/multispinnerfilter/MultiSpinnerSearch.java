@@ -135,10 +135,27 @@ public class MultiSpinnerSearch extends Spinner implements OnCancelListener {
 		this.items = items;
 		this.defaultText = allText;
 		this.listener = listener;
+		
+		StringBuffer spinnerBuffer = new StringBuffer();
+
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).isSelected()) {
+				spinnerBuffer.append(items.get(i).getName());
+				spinnerBuffer.append(", ");
+			}
+		}
+
+		String spinnerText = "";
+		spinnerText = spinnerBuffer.toString();
+		if (spinnerText.length() > 2)
+			spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
+		else
+			spinnerText = defaultText;
+			
 				
 		ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getContext(),
 				R.layout.textview_for_spinner,
-				new String[] { defaultText });
+				new String[] { spinnerText });
 		setAdapter(adapterSpinner);
 		
 		if(position != -1)
